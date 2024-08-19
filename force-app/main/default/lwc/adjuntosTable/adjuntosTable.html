@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Adjuntos">
+        <template if:true={adjuntosData}>
+            <div class="slds-list_dotted">
+                <template for:each={adjuntosData} for:item="item">
+                    <div key={item.Id} class="slds-item slds-m-bottom_small">
+                        <div class={item.boxClass}>
+                            <p><strong>Nombre del Archivo:</strong> {item.fileName}</p>
+                            <lightning-file-upload
+                                label="Seleccionar Archivo"
+                                name="fileUploader"
+                                accept={acceptedFormats}
+                                record-id={item.Id}
+                                onuploadfinished={handleUploadFinished}
+                                multiple
+                            ></lightning-file-upload>
+                            <template if:true={item.fileName}>
+                                <lightning-icon icon-name="utility:upload" alternative-text="File Uploaded" size="small" class="slds-icon slds-icon_x-small slds-m-left_small slds-text-success"></lightning-icon>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

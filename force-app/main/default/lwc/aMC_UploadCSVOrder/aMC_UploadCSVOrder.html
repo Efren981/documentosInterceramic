@@ -1,0 +1,17 @@
+<template>
+    <div if:true={isLoading}>
+        <lightning-spinner
+            alternative-text="Loading..." variant="brand" class="slds-is-fixed">
+        </lightning-spinner>
+    </div>
+    <lightning-card title="Carga de Productos" icon-name="standard:product">
+        <div class="slds-m-around_medium">
+            <lightning-input type="file" 
+            accept=".csv, .txt"
+            label="Cargar Archivo" onchange={openfileUpload}></lightning-input>
+        </div>
+        <template if:true={fileData}>
+            <p>{fileData.filename}</p>
+        </template>
+    </lightning-card>
+</template>

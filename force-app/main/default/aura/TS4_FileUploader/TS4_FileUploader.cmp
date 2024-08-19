@@ -1,0 +1,44 @@
+<aura:component controller="TS4_FileUploadController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="adjuntosDeProducto" type="TS4_AdjuntoDeProductoDeGarantia__c[]" />
+    <aura:attribute name="selectedFile" type="Object" />
+    <aura:attribute name="previewUrl" type="String" />
+    <aura:attribute name="showModal" type="Boolean" default="false" />
+    <aura:attribute name="selectedAdjuntoId" type="Id" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <div class="slds-grid slds-wrap">
+        <aura:iteration items="{!v.adjuntosDeProducto}" var="adjunto">
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning:input type="file" 
+                                 label="{!'Archivo para ' + adjunto.Producto_del_ticket__r.Name}"
+                                 onchange="{!c.handleFileSelect}"
+                                 aura:id="{!'fileInput_' + adjunto.Id}" />
+                <aura:if isTrue="{!not(empty(adjunto.URL_del_archivo__c))}">
+                    <p>Archivo actual: <a href="{!adjunto.URL_del_archivo__c}" target="_blank">Ver archivo</a></p>
+                </aura:if>
+            </div>
+        </aura:iteration>
+    </div>
+    
+    <aura:if isTrue="{!v.showModal}">
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Previsualización de Archivo</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <img src="{!v.previewUrl}" alt="Previsualización" style="max-width: 100%;" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancelar" onclick="{!c.closeModal}" />
+                    <lightning:button label="Subir Archivo" variant="brand" onclick="{!c.uploadFile}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

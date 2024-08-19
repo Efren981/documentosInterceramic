@@ -1,0 +1,7 @@
+<design:component label="Hello World">
+
+    <design:supportedFormFactors>
+        <design:supportedFormFactor type="Large"/>
+        <design:supportedFormFactor type="Small"/>
+    </design:supportedFormFactors>
+</design:component>

@@ -1,0 +1,92 @@
+<template>
+    <lightning-card title="Adjuntos y Evidencias">
+        <div class="slds-p-around_medium">
+            <!-- Card 1 -->
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header slds-grid slds-grid_align-spread">
+                    <div class="slds-text-heading_medium">Adjuntos</div>
+                    <div class="button-container">
+                        <button class="square-button" onclick={handleShowModal}>Agregar Adjunto</button>
+                    </div>
+                </div>
+                <div class="slds-card__body slds-text-longform">
+                    <!-- Mostrar archivos cargados -->
+                    <template if:true={adjuntos}>
+                        <ul class="slds-list_dotted">
+                            <template for:each={adjuntos} for:item="file">
+                                <li key={file.Id}>
+                                    <a href={file.ContentDocumentId__c} target="_blank">{file.Name}</a>
+                                    <lightning-button variant="base" label="Eliminar" onclick={handleDeleteFile} data-id={file.Id} class="slds-m-left_small"></lightning-button>
+                                    <lightning-button variant="base" label="Editar" onclick={handleEditFile} data-id={file.Id} class="slds-m-left_small"></lightning-button>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="slds-card">
+                <div class="slds-card__header slds-grid slds-grid_align-spread">
+                    <div class="slds-text-heading_medium">Evidencias</div>
+                    <div class="button-container">
+                        <button class="square-button" onclick={handleShowModal}>Agregar Evidencia</button>
+                    </div>
+                </div>
+                <div class="slds-card__body slds-text-longform">
+                    <!-- Mostrar archivos cargados -->
+                    <template if:true={evidencias}>
+                        <ul class="slds-list_dotted">
+                            <template for:each={evidencias} for:item="file">
+                                <li key={file.Id}>
+                                    <a href={file.ContentDocumentId__c} target="_blank">{file.Name}</a>
+                                    <lightning-button variant="base" label="Eliminar" onclick={handleDeleteFile} data-id={file.Id} class="slds-m-left_small"></lightning-button>
+                                    <lightning-button variant="base" label="Editar" onclick={handleEditFile} data-id={file.Id} class="slds-m-left_small"></lightning-button>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+
+    <!-- Modal para cargar archivos -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right" title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Cargar Archivos</h2>
+                </header>
+                <div class="slds-modal__body slds-p-around_medium">
+                    <!-- Sección Imagen A -->
+                    <div class="slds-m-bottom_medium">
+                        <h3 class="slds-text-heading_small">Imagen A</h3>
+                        <lightning-input type="file" onchange={handleFileUploadA} multiple></lightning-input>
+                        <template if:true={fileUploadedA}>
+                            <lightning-button variant="neutral" label="Eliminar" onclick={handleDeleteFileA} class="slds-m-top_small"></lightning-button>
+                            <lightning-button variant="brand" label="Editar" onclick={handleEditFileA} class="slds-m-top_small"></lightning-button>
+                        </template>
+                    </div>
+                    <!-- Sección Imagen B -->
+                    <div>
+                        <h3 class="slds-text-heading_small">Imagen B</h3>
+                        <lightning-input type="file" onchange={handleFileUploadB} multiple></lightning-input>
+                        <template if:true={fileUploadedB}>
+                            <lightning-button variant="neutral" label="Eliminar" onclick={handleDeleteFileB} class="slds-m-top_small"></lightning-button>
+                            <lightning-button variant="brand" label="Editar" onclick={handleEditFileB} class="slds-m-top_small"></lightning-button>
+                        </template>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCloseModal}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

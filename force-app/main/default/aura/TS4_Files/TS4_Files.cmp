@@ -1,0 +1,68 @@
+<aura:component controller="TS4_consumoS3" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="fileUploaders" type="Object[]" default="[]"/>
+    <aura:attribute name="numberOfUploaders" type="Integer" default="10"/>
+    <aura:attribute name="dataTest" type="String"/>
+    <aura:attribute name="fileType" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+    
+    <lightning:card title="Carga Evidencias" iconName="utility:image">
+        <div class="slds-p-around_medium">
+            <aura:iteration items="{!v.fileUploaders}" var="uploader" indexVar="index">
+                <div class="{! join(' ', 
+                    'slds-grid', 
+                    'slds-gutters', 
+                    'slds-m-bottom_medium',
+                    if(uploader.isFileLoaded, 'mandatory-loaded', 
+                       if(and(uploader.isRequired, not(uploader.isFileLoaded)), 'mandatory-not-loaded', '')
+                    )
+                )}">
+                    <div class="slds-col slds-size_2-of-3">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning:input aura:id="fileInput" 
+                                                 type="file" 
+                                                 label="{!uploader.label}"
+                                                 multiple="false" 
+                                                 accept="image/jpeg, image/png, image/gif,image/jpg" 
+                                                 onchange="{!c.handleFileChange}" 
+                                                 name="{!index}" 
+                                                 required="{!uploader.isRequired}"/>
+
+                            </div>
+                        </div>
+                        <div class="slds-text-body_small slds-m-top_x-small">
+                            <aura:if isTrue="{!not(empty(uploader.fileName))}">
+                                <span style="color: green;">Archivo cargado: {!uploader.fileName}</span>
+                                <aura:set attribute="else">
+                                    <span style="{! 'color: ' + (uploader.isRequired ? '#ff0000' : '#747474')}">
+                                        {! if(uploader.isRequired, 'Archivo obligatorio no seleccionado', 'Archivo opcional no seleccionado')}
+                                    </span>
+                                </aura:set>
+                            </aura:if>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+                        <aura:if isTrue="{!uploader.isFileLoaded}">
+                            <lightning:icon iconName="utility:success" alternativeText="Archivo cargado" size="small" variant="success"/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="{! if(uploader.isRequired, 'utility:warning', 'utility:upload')}" 
+                                                alternativeText="{! if(uploader.isRequired, 'Archivo obligatorio no cargado', 'Cargar archivo opcional')}" 
+                                                size="small" 
+                                                variant="{! if(uploader.isRequired, 'warning', 'neutral')}"/>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+        <div class="slds-m-top_medium slds-align_absolute-center">
+            <lightning:button variant="brand" label="Verificar archivos cargados" onclick="{!c.handleVerifyUploads}" />
+        </div>
+    </lightning:card>
+
+    <lightning:input aura:id="fileInput1" type="file"  label="Test" multiple="false" accept="image/jpeg, image/png, image/gif,image/jpg" onchange="{!c.handleFileChange1}" />
+    <lightning:button variant="brand" label="Test" onclick="{!c.handleVerifyUploads1}" />
+</aura:component>

@@ -1,0 +1,19 @@
+<aura:component controller="AttachPDFToOpportunity" implements="force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+    
+    <aura:handler event="aura:doneRendering" action="{!c.doneRendering}"/>
+    <aura:attribute name="isDoneRendering" type="Boolean" default="false"/>
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="hasAttachment" type="Boolean" default="false" />
+    
+    <div class="slds-modal__container slds-modal_large"> 
+        <div aura:id="modalCoainer" class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <iframe aura:id="iframe" src="{!'/apex/PDFProyectoObra_vfp?id=' + v.recordId}" width="100%" height="700px"></iframe>
+        </div>
+        <footer aura:id="modalFooter" class="slds-modal__footer">
+            <aura:if isTrue="{!not(v.hasAttachment)}">
+            	<lightning:button aura:id="saveButton" class="slds-button slds-button_brand" label="Guardar en la oportunidad" onclick="{!c.doAttachQuoteDocument}"/>
+            </aura:if>
+            <lightning:button aura:id="cancelButton" class="slds-button slds-button_neutral" label="Cancelar" onclick="{!c.doCancel}"/>
+        </footer>
+    </div>
+</aura:component>

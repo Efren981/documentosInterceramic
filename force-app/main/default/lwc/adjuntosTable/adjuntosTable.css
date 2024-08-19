@@ -1,0 +1,27 @@
+.slds-list_dotted {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.slds-item {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    background-color: #fff;
+}
+
+.slds-box {
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    background-color: #f4f6f9;
+}
+
+.slds-background_color_success {
+    background-color: #e6ffed;
+}
+
+.slds-text_success {
+    color: #2e7d32;
+}

@@ -1,0 +1,11 @@
+.THIS .mandatory-not-loaded {
+    background-color: #ffecec;
+    border: 1px solid #ff8080;
+    border-radius: 4px;
+}
+
+.THIS .mandatory-loaded {
+    background-color: #e6f9e6; /* Verde claro */
+    border: 1px solid #99e699; /* Verde más oscuro */
+    border-radius: 4px;
+}

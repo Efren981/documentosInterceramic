@@ -1,0 +1,76 @@
+.THIS .adjuntosCard, .THIS .evidenciasCard {
+    border: 1px solid #d8d8d8;
+    border-radius: 0.25rem;
+}
+
+.THIS .cardHeader {
+    background-color: #f4f6f9;
+    display: flex;
+    align-items: center;
+}
+
+.THIS .slds-theme_success {
+    background-color: #f0fff4; /* Lighter green background */
+}
+
+.THIS .slds-theme_info {
+    background-color: #f0f4ff; /* Lighter purple background */
+}
+
+.THIS .slds-box {
+    border: 1px solid #d8d8d8;
+    border-radius: 0.25rem;
+}
+
+.THIS .file-loaded {
+    padding: 0.75rem;
+}
+
+.THIS .file-loaded .slds-col {
+    margin-bottom: 0.5rem;
+}
+
+.THIS .file-loaded .slds-text {
+    color: #000000; /* Color negro para el texto */
+}
+
+.THIS .file-link {
+    color: #000000 !important; /* Force black color for links */
+    text-decoration: underline;
+}
+
+.THIS .file-link:hover {
+    color: #005fb2 !important; /* Salesforce's standard link hover color */
+}
+
+.THIS .file-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.THIS .file-loaded .slds-text,
+.THIS .file-loaded .file-link,
+.THIS .file-upload .slds-form-element__control {
+    color: #000000; /* Color negro para el texto */
+}
+
+.THIS .file-upload .slds-form-element__control input {
+    color: #000000; /* Color negro para el texto dentro del input de carga de archivos */
+}
+
+
+/* Media query for responsive design */
+@media (max-width: 767px) {
+    .THIS .slds-col {
+        width: 100%;
+        padding: 0.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .THIS .slds-col {
+        width: 50%;
+        padding: 0.5rem;
+    }
+}

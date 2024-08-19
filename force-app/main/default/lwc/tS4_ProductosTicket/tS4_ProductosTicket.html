@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Productos del Ticket" icon-name="standard:product">
+        <div class="slds-m-around_medium">
+            <template if:true={productos}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={productos}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={draftValues}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+            <template if:true={error}>
+                <p>{error}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

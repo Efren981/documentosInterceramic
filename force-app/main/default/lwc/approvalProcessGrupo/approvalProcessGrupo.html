@@ -1,0 +1,5 @@
+<template>
+    <lightning-button label="Enviar a aprobación" title="Aprobar" onclick={handleApproveClick}  disabled={isButtonDisabled}></lightning-button>
+    <p if:true={noEnviado}>No se cumple con el monto minimo.</p>
+    <p if:true={enviado}>Enviado.</p>
+</template>

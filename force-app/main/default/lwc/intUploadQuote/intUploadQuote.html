@@ -1,0 +1,38 @@
+<template>
+    <div if:true={isLoading}>
+        <lightning-spinner
+            alternative-text="Loading..." variant="brand" class="slds-is-fixed">
+        </lightning-spinner>
+    </div>
+    <div if:true={showError} class="slds-notify_container slds-is-fixed slds-p-top_large slds-p-left_large slds-p-right_large">
+    <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+        <span class="slds-assistive-text">error</span>
+        <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+            </svg>
+        </span>
+        <div class="slds-notify__content slds-scrollable_y" style="max-height: 200px;"> <!-- Establece la altura máxima y habilita el desplazamiento vertical -->
+            <h2 class="slds-text-heading_small" style="white-space: pre-wrap;">{errorMessage}</h2> <!-- Mostrar el mensaje de error -->
+        </div>
+        <div class="slds-notify__close">
+            <button class="slds-button slds-button_inverse " title="Close" onclick={closeError}> X
+
+                <span class="slds-assistive-text">Close</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+    <lightning-card title="Cargar partidas modificadas" icon-name="standard:product">
+        <div class="slds-m-around_medium">
+            <lightning-input type="file" 
+            accept=".csv, .txt"
+            label="Solo archivo csv utf-8" onchange={openfileUpload}></lightning-input>
+        </div>
+        <template if:true={fileData}>
+            <p>{fileData.filename}</p>
+        </template>
+    </lightning-card>
+</template>

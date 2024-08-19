@@ -1,0 +1,12 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <!-- Parámetro de entrada para recibir los registros de productos -->
+    <aura:attribute name="productos" type="TS4_Producto_del_ticket__c[]"/>
+    
+    <!-- Itera sobre los productos y crea un input para cada uno -->
+    <aura:iteration items="{!v.productos}" var="producto">
+        <div class="slds-p-around_medium">
+            <p>Producto: {!producto.Name}</p>
+            <input type="file" onchange="{!c.handleFileChange}" data-id="{!producto.Id}" />
+        </div>
+    </aura:iteration>
+</aura:component>

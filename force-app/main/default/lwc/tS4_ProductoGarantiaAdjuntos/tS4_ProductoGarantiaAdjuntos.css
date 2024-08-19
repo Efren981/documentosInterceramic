@@ -1,0 +1,22 @@
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.square-button {
+    width: 100%;
+    height: 50px; /* Ajusta el tamaño según tu preferencia */
+    border: 2px solid #0070d2; /* Color del borde */
+    background-color: #ffffff; /* Color de fondo del botón */
+    color: #0070d2; /* Color del texto */
+    border-radius: 0; /* Bordes cuadrados */
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.square-button:hover {
+    background-color: #f3f6f9; /* Color de fondo al pasar el ratón */
+    border-color: #005fb2; /* Color del borde al pasar el ratón */
+}

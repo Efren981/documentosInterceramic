@@ -1,0 +1,46 @@
+.THIS{
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 100% !important;
+}
+
+.THIS .slds-modal__container{
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+.THIS #container{
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 100% !important;
+}
+
+.THIS .iframeDesktop{
+	height: 400px;
+	width: 1120px;
+}
+
+.THIS .pdfFrame{
+	height: 400px;
+	width: 100%;
+}
+
+.THIS .mobile-container{
+	padding: 0;
+}
+
+.THIS .mobile-container #mainContainer{
+	min-width: 100%;
+	width: 100%;
+}
+
+.THIS #emptyFieldList{
+	height: 320px;
+	overflow-y: auto;
+}
+
+.THIS .mobile-footer button{
+	width: 100%;
+	margin: 5% 0 !important;
+	display: block;
+}

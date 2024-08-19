@@ -1,0 +1,75 @@
+<!--
+  @description       : 
+  @author            : emeza@freewayconsulting.com
+  @group             : 
+  @last modified on  : 09-10-2023
+  @last modified by  : emeza@freewayconsulting.com
+  Modifications Log
+  Ver   Date         Author                        Modification
+  1.0   08-31-2023   emeza@freewayconsulting.com   Initial Version
+-->
+<template>
+    <div class="spinner">
+        <template if:true={isLoading}>
+             <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+             </lightning-spinner>
+        </template>
+    </div>
+    <lightning-card title = "Aprobar partidas NO y MB" icon-name = "custom:custom63">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button label="Aprobar" title="Approve" onclick={handleClickApprove} disabled={emptyPendingApproval} class="slds-m-left_x-small"></lightning-button>
+                <lightning-button label="Rechazar" title="Reject" onclick={handleClickReject} disabled={emptyPendingApproval} class="slds-m-left_x-small"></lightning-button>
+            </lightning-button-group>
+    </div>
+        <div class="slds-m-around_medium ">
+            <template if:true = {isEmptyQLINO}>
+                <div class="slds-text-heading_small slds-m-around_medium">Partidas Normales</div>
+                <div>
+                    <lightning-datatable key-field="Id"
+                                         data={quoteLineItemsNO}
+                                         columns={columnsNO}
+                                         onrowaction={handleRowAction}
+                                         onrowselection={getSelectedNameNO}>
+                    </lightning-datatable>
+                </div>
+            </template>
+            <template if:true = {error}>
+                {error}>
+            </template>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true = {isEmptyQLIMB}>
+                <div class="slds-text-heading_small slds-m-around_medium">Partidas Muebles de Baño</div>
+                <div >
+                    <lightning-datatable 
+                    key-field="Id"
+                                         data={quoteLineItemsMB}
+                                         columns={columnsMB}
+                                         onrowaction={handleRowAction}
+                                         onrowselection={getSelectedNameMB}
+                                         >
+                    </lightning-datatable>
+                </div>
+            </template>
+            <template if:true = {error}>
+                {error}
+            </template>
+        </div>
+        <template if:true = {emptyPendingApproval}>
+            <div class="demo-only" style="padding:0.5rem;background:#16325c">
+                <div class="slds-text-color_inverse">No hay partidas pendientes por aprobar.</div>
+                </div>
+        </template>
+        <div class="c-container slds-m-around_medium">
+            <lightning-layout>
+                <lightning-layout-item size="12">
+                    <lightning-textarea name="inputTextArea" disabled={emptyPendingApproval} label="Comentarios de aprobación" placeholder="Escribe tus comentarios aquí..." onchange={changeComments}></lightning-textarea>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div slot="footer">
+            <lightning-button label="Guardar" disabled={emptyPendingApproval} variant="brand" title="Save" onclick={handleClickSave} class="slds-m-center_x-small"></lightning-button>
+        </div>
+    </lightning-card>
+</template>

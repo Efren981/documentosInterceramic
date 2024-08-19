@@ -1,0 +1,18 @@
+<aura:component>
+    <aura:attribute name="originalImageUrl" type="String" />
+    <aura:attribute name="compressedImageUrl" type="String" />
+    <aura:attribute name="originalSize" type="String" />
+    <aura:attribute name="compressedSize" type="String" />
+    
+    <input type="file" onchange="{!c.handleFileUpload}" />
+    <div>
+        <p>Original Image:</p>
+        <img src="{!v.originalImageUrl}" alt="Original Image" />
+        <p>Original Size: {!v.originalSize} KB</p>
+    </div>
+    <div>
+        <p>Compressed Image:</p>
+        <img src="{!v.compressedImageUrl}" alt="Compressed Image" />
+        <p>Compressed Size: {!v.compressedSize} KB</p>
+    </div>
+</aura:component>

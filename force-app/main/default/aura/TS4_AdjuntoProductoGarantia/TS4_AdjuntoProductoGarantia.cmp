@@ -1,0 +1,95 @@
+<aura:component controller="AdjuntoProductoGarantiaController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="adjuntos" type="TS4_AdjuntoDeProductoDeGarantia__c[]" />
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+    <aura:attribute name="previewFile" type="Object" />
+    <aura:attribute name="base64" type="String" />
+    <aura:attribute name="fileType" type="String" />
+    <aura:attribute name="nameFile" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-grid slds-wrap ">
+        <!-- Unificada Sección Adjuntos y Evidencias -->
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning:card class="evidenciasCard">
+                <div class="slds-card__header slds-grid slds-p-around_small cardHeader">
+                    <lightning:icon iconName="doctype:image" alternativeText="Evidencias de Garantía" size="small" class="slds-m-right_x-small" />
+                    <header class="slds-media__body">
+                        <h2 class="slds-text-heading_medium">Evidencias de Garantía</h2>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <aura:iteration items="{!v.adjuntos}" var="adjunto">
+                        <!-- Condición para Adjuntos -->
+                       
+                        <!-- Condición para Evidencias de Garantía -->
+                        <aura:if isTrue="{!adjunto.Tipo__c == 'Evidencia'}">
+                            <div class="slds-p-around_medium">
+                                <lightning:layoutItem size="12">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">{!adjunto.Nombre_del_Archivo__c}</span>
+                                        <div class="slds-form-element__control">
+                                            <aura:if isTrue="{!adjunto.Estado__c == 'Completado'}">
+                                                <div class="slds-box slds-box_x-small slds-theme_success file-loaded">
+                                                    <div class="slds-grid slds-grid_vertical">
+                                                        <div class="slds-col">
+                                                            <lightning:icon iconName="utility:check" alternativeText="Archivo cargado" size="small" class="slds-m-right_x-small"/>
+                                                            <span class="slds-text">Archivo cargado</span>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <a onclick="{!c.handleViewFile}" data-id="{!adjunto.Id}" class="file-link" href="javascript:void(0);">Ver archivo</a>
+                                                        </div>
+                                                        <div class="slds-col">
+                                                            <a href="{!adjunto.URL_del_archivo__c}" target="_blank" class="file-link">URL del archivo</a>
+                                                        </div>
+                                                        <div class="slds-col file-actions">
+                                                            <lightning:input type="file" label="Modificar archivo" onchange="{!c.handleFileUpload}" name="{!adjunto.Id}" class="file-upload"/>
+                                                            <lightning:button label="Eliminar" onclick="{!c.handleDeleteFile}" name="{!adjunto.Id}" variant="destructive" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <aura:set attribute="else">
+                                                <lightning:input type="file" 
+                                                label="Cargar archivo" 
+                                                onchange="{!c.handleFileUpload}" 
+                                                name="{!adjunto.Id}" 
+                                                class="file-upload"
+                                                accept="image/*" 
+                                                capture="filesystem"/>
+                                            </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                </lightning:layoutItem>
+                            </div>
+                        </aura:if>
+                    </aura:iteration>
+                </div>
+            </lightning:card>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Cargando" />
+    </aura:if>
+
+    <!-- File Preview Modal -->
+    <aura:if isTrue="{!not(empty(v.previewFile))}">
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Vista previa del archivo</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <img src="{!v.previewFile.src}" alt="Vista previa" style="max-width: 100%;" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancelar" onclick="{!c.handleCloseModal}" />
+                    <lightning:button label="Subir archivo" variant="brand" onclick="{!c.handleUploadToService}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>
